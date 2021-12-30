@@ -1,0 +1,29 @@
+@import '../../index';
+
+.header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #5a5a5a7a;
+ 
+  .logo-icon {
+    width: 66px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .logIn-container {
+    display: flex;
+    color: $main-gray-color;
+    font-size: 18px;
+    .sign-button {
+      margin-left: 5px;
+
+      &:hover {
+        color: $main-white-color;
+        cursor: pointer;
+      }
+    }
+  }
+}

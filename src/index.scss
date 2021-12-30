@@ -1,0 +1,17 @@
+$main-pink-color:#ea003d;
+$main-white-color:#fff;
+$main-gray-color:#ffffff7a;
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+#root {
+  margin: 0 20px;
+}
+body {
+  color: $main-white-color;
+  background-color: #100e19;
+  font-family: Helvetica,Helvetica Neue;
+
+}
