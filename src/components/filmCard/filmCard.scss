@@ -1,65 +1,58 @@
 %film-decor {
-  width: 150px;
-  height: 225px;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 }
 
 .film-card-el {
   position: relative;
   display: flex;
-  width: 150px;
   flex-direction: column;
-  margin-top: 20px;
   cursor: pointer;
-}
-.film-poster {
- @extend %film-decor;
-//  background:url('https://image.tmdb.org/t/p/w200/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg');
-//  background-size: cover;
- transition: 0.5s;
-
-}
-.film-title {
-  font-size: 15px;
-  line-height: 20px;
-  margin-top: 8px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-}
-
-.film-card-el-hover {
-  cursor: pointer;
-  display: flex;
-  opacity: 0;
-  flex-direction: column;
-  justify-content: end;
-  background-color: #262525c7;
-  position: absolute;
-  padding-left: 10px;
-  font-family: iviSans,Arial,Helvetica,Helvetica Neue;
-  @extend %film-decor;
-  transition: 0.5s;
-
-  .release-date{
-    margin-bottom: 10px;
-    font-size: 13px;
+  &__poster {
+    @extend %film-decor;
+    transition: 0.5s;
   }
-  .vote-average  {
-    margin-bottom: 12px;
-    &::first-letter{
-      font-size: 26px;
-    }
-    font-size: 20px;
+  &__title {
+    font-size: 15px;
+    margin-top: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
+  &__hover {
+    cursor: pointer;
+    display: flex;
+    opacity: 0;
+    flex-direction: column;
+    justify-content: end;
+    background-color: #262525c7;
+    position: absolute;
+    padding-left: 10px;
+    font-family: iviSans,Arial,Helvetica,Helvetica Neue;
+    @extend %film-decor;
+    height: calc(100% - 30px);
+    transition: 0.5s;
   
-}
-.film-card-el:hover .film-card-el-hover {
-  transform: scale(1.05);
-  transition: 0.5s;
-}
-.film-card-el:hover .film-poster {
-  transform: scale(1.05);
-  transition: 0.5s;
+    &__release-date {
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+    &__vote-average  {
+      margin-bottom: 12px;
+      &::first-letter{
+        font-size: 26px;
+      }
+      font-size: 20px;
+    }
+  }
+  &:hover &__hover {
+    transform: scale(1.05);
+    transition: 0.5s;
+    opacity: 1;
+  }
+  &:hover &__poster {
+    transform: scale(1.05);
+    transition: 0.5s;
+  }
 }
