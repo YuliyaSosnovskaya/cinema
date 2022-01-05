@@ -1,0 +1,37 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  
+}
+
+.pagination-el {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #ffffff3b;
+  margin: 0 3px;
+  background-color: transparent;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffffff14;
+  }
+  &__active {
+    background-color: #ffffff29;
+    &:hover {
+      background-color: #ffffff3d;
+    }
+  }
+  &__ellipsis {
+    cursor: text;
+    border-color: transparent;
+    &:hover{
+      background-color: transparent;
+    }
+  }
+}
