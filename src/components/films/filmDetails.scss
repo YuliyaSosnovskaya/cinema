@@ -1,0 +1,75 @@
+@import '../../index';
+
+.detail-page {
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-between;
+
+  &__film-part {
+    display: flex;
+  }
+
+  &__poster {
+    width: 260px;
+    height: 390px;
+    border-radius: 8px;
+  }
+  &__details-el{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    
+  }
+  &__about {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 35px;
+    &__table {
+      font-size: 14px;
+      font-weight: normal;
+      border-spacing: 0 20px;
+      
+      tr td:first-child {
+        color:$main-gray-color;
+        width: 110px;
+        vertical-align: baseline;
+      }
+    }
+  }
+  &__title {
+    width: 350px;
+    font-size: 26px;
+    font-weight: 800;
+    &__original-title{
+      font-size: 15px;
+      color: $main-gray-color;
+      margin-top: 20px;
+    }
+    &__advertising{
+      color: $main-white-color;
+      background-color: $main-pink-color;
+      border-radius: 8px;
+      padding: 10px;
+      width: max-content;
+      margin-top: 25px;
+      &:hover {
+        cursor: pointer;
+        filter: brightness(1.1);
+      }
+    }
+  }
+  &__rating-part {
+    font-size: 34px;
+    margin-left: 40px;
+    color: $main-pink-color;
+    &__votes {
+      font-size: 14px;
+      color: $main-gray-color ;
+      width: max-content;
+      margin-top: 5px;
+    }
+    &__vote-average::first-letter {
+      font-size: 45px;
+    }
+  }
+}

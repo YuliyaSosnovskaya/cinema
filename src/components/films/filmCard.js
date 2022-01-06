@@ -1,8 +1,12 @@
 import './filmCard.scss';
+import { deleteElById } from '../../utils';
+import { createFilmDetailsPage } from './filmDetails';
+import { fetchFilmDetails } from '../../requests/requests';
 
-export function createFilmCard ({poster_path, title, release_date, vote_average}) {
+export function createFilmCard ({poster_path, title, release_date, vote_average, id}) {
   const cardEl = document.createElement('div');
   cardEl.className = 'film-card-el';
+  cardEl.id = id;
 
   const posterEl = document.createElement('img');
   posterEl.src = `https://image.tmdb.org/t/p/w500${poster_path}`;
@@ -26,9 +30,26 @@ export function createFilmCard ({poster_path, title, release_date, vote_average}
   const voteAverageEl = document.createElement('div');
   voteAverageEl.className = 'film-card-el__hover__vote-average';
   voteAverageEl.innerText = vote_average;
+
   cardHoverEl.append(voteAverageEl);
   cardHoverEl.append(releaseDateEl);
   cardEl.append(cardHoverEl);
 
+  cardEl.addEventListener('click', cardClickHandler);
+
   return cardEl;
+}
+
+function cardClickHandler (e) {
+  deleteElById('filmsContainer');
+  deleteElById('paginationContainer');
+
+  const rootEl = document.getElementById('root');
+  const filmId = e.currentTarget.id;
+
+  const filmDetailsPromise = fetchFilmDetails(filmId);
+  filmDetailsPromise.then((details) => {
+    const filmDetailsPageEl = createFilmDetailsPage(details);
+    rootEl.append(filmDetailsPageEl);
+  });
 }

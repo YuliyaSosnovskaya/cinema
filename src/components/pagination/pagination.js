@@ -7,6 +7,7 @@ export function createPagination () {
 
   const paginationContainerEl = document.createElement('div');
   paginationContainerEl.className = 'pagination-container';
+  paginationContainerEl.id = 'paginationContainer';
   
   const arrowLeft = createPaginationEl('\u276E');
   arrowLeft.addEventListener('click', (e) => arrowHandler(e, 'left'));
