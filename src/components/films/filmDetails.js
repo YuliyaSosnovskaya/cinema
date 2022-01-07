@@ -1,5 +1,6 @@
 import './filmDetails.scss';
-import {addElToParent} from '../../utils';
+import { addElToParent } from '../../utils';
+import { fetchFilmDetails } from '../../requests/requests';
 
 export function createFilmDetailsPage ({
   overview,
@@ -73,4 +74,14 @@ function createDetailRow(key, value) {
   addElToParent('td', tr, '', key);
   addElToParent('td', tr, '', value);
   return tr;
+}
+
+export function renderFilmDetailsPage(filmId) {
+  const container = document.getElementById('container');
+ 
+  const filmDetailsPromise = fetchFilmDetails(filmId);
+  filmDetailsPromise.then((details) => {
+    const filmDetailsPageEl = createFilmDetailsPage(details);
+    container.append(filmDetailsPageEl);
+  });
 }

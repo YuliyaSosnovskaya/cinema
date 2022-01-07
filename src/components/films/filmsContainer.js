@@ -1,6 +1,7 @@
 import './filmsContainer.scss';
 import { fetchFilms } from '../../requests/requests';
 import { createFilmCard } from './filmCard';
+import { createPagination } from '../pagination/pagination';
 
 export function createFilmsContainer () {
   const filmsContainerEl = document.createElement('div');
@@ -19,4 +20,16 @@ export function fillFilmsContainer (page) {
         filmsContainerEl.append(filmCardEl);
       });
   });
+}
+
+export function renderFilmsPage(pageNumber) {
+  const container = document.getElementById('container');
+  
+  const filmsContainerEl = createFilmsContainer();
+  container.append(filmsContainerEl);
+
+  fillFilmsContainer(pageNumber);
+
+  const paginationEl = createPagination();
+  container.append(paginationEl);
 }

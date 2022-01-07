@@ -14,6 +14,9 @@ module.exports = {
   },
   devServer: {
     static: './dist', // for webpack-dev-server
+    historyApiFallback: {
+      index: 'index.html'
+    }
   },
   module: {
     rules: [

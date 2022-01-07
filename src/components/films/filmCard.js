@@ -1,7 +1,6 @@
 import './filmCard.scss';
-import { deleteElById } from '../../utils';
-import { createFilmDetailsPage } from './filmDetails';
-import { fetchFilmDetails } from '../../requests/requests';
+import router from '../../router';
+import { goTo } from '../../utils';
 
 export function createFilmCard ({poster_path, title, release_date, vote_average, id}) {
   const cardEl = document.createElement('div');
@@ -41,15 +40,7 @@ export function createFilmCard ({poster_path, title, release_date, vote_average,
 }
 
 function cardClickHandler (e) {
-  deleteElById('filmsContainer');
-  deleteElById('paginationContainer');
-
-  const rootEl = document.getElementById('root');
   const filmId = e.currentTarget.id;
-
-  const filmDetailsPromise = fetchFilmDetails(filmId);
-  filmDetailsPromise.then((details) => {
-    const filmDetailsPageEl = createFilmDetailsPage(details);
-    rootEl.append(filmDetailsPageEl);
-  });
+  goTo(`/movie/${filmId}`);
+  router();
 }

@@ -14,3 +14,15 @@ export function addElToParent (tag, parentEl, className, innerText) {
   parentEl.append(el);
   return el;
 }
+
+export function clearContainer () {
+  const container = document.getElementById('container');
+ 
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  };
+}
+
+export function goTo(urlPath) {
+  history.pushState(null, null, urlPath);
+}
