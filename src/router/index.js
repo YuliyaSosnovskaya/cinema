@@ -9,11 +9,8 @@ function goTo (urlPath) {
 
 export default function router (nextUrlPath) {
   goTo(nextUrlPath);
-
+  
   const currentPath = location.pathname;
-  if (currentPath === nextUrlPath) {
-    return;
-  }
 
   clearContainer();
   if (currentPath === '/') {
