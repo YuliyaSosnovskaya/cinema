@@ -1,29 +1,58 @@
 import './header.scss';
 import IviLogo from '../../img/ivilogo.svg';
+import  router  from '../../router';
+import { getItemFromLS, removeItemFromLS, addElToParent } from '../../utils';
 
 export function createHeader () {
   const header = document.createElement('header');
   header.className = 'header';
+  header.id = 'header';
+  
   //logo El
   const logoIcon = document.createElement('img');
   logoIcon.src = IviLogo;
   logoIcon.className = 'logo-icon';
-  //sign in/out 
-  const logInEl = document.createElement('div');
-  logInEl.className = 'logIn-container';
-  //user name str
-  const userNameEl = document.createElement('span');
-  userNameEl.className = 'userName';
-  userNameEl.innerText = 'Yuliya |';
-  logInEl.append(userNameEl);
-
-  const signButton = document.createElement('div');
-  signButton.className = 'sign-button';
-  signButton.innerText = 'sign in';
-  logInEl.append(signButton);
-
   header.append(logoIcon);
-  header.append(logInEl);
+
+  const loginContainerEl = createLoginContainerEl();
+  header.append(loginContainerEl);
 
   return header;
+}
+
+export function renderLoginContainer () {
+  document.getElementById('loginContainer').remove();
+  const loginContainerEl = createLoginContainerEl();
+
+  const headerEl = document.getElementById('header');
+  headerEl.append(loginContainerEl);
+}
+
+export function createLoginContainerEl () {
+
+  const loginContainerEl = document.createElement('div');
+  loginContainerEl.className = 'logIn-container';
+  loginContainerEl.id = 'loginContainer';
+
+  //user name str
+  const user = getItemFromLS('user');
+  if (user) {
+    addElToParent('span', loginContainerEl, 'userName', user.name);
+  }
+
+  const authBtnInnerText = user ? 'Log Out' : 'Sign In / Sign Up';
+  const authButton = addElToParent('div', loginContainerEl, 'auth-button', authBtnInnerText);
+  authButton.addEventListener('click', onClickAuthButtonlHandler);
+
+  return loginContainerEl;
+}
+
+ function onClickAuthButtonlHandler () {
+  const user = getItemFromLS('user');
+  if (user) {
+    removeItemFromLS('user');
+    renderLoginContainer();
+  } else {
+    router('/sign-in');
+  }
 }

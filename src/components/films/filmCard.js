@@ -1,6 +1,5 @@
 import './filmCard.scss';
 import router from '../../router';
-import { goTo } from '../../utils';
 
 export function createFilmCard ({poster_path, title, release_date, vote_average, id}) {
   const cardEl = document.createElement('div');
@@ -41,6 +40,5 @@ export function createFilmCard ({poster_path, title, release_date, vote_average,
 
 function cardClickHandler (e) {
   const filmId = e.currentTarget.id;
-  goTo(`/movie/${filmId}`);
-  router();
+  router(`/movie/${filmId}`);
 }
