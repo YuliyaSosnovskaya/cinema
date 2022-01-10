@@ -29,13 +29,13 @@ export function fillFilmsContainer(page) {
 }
 
 export function renderFilmsPage(pageNumber) {
-  const container = document.getElementById('container');
+  const mainContainer = document.getElementById('mainContainer');
 
   const filmsContainerEl = createFilmsContainer();
-  container.append(filmsContainerEl);
+  mainContainer.append(filmsContainerEl);
 
   fillFilmsContainer(pageNumber);
 
   const paginationEl = createPagination();
-  container.append(paginationEl);
+  mainContainer.append(paginationEl);
 }

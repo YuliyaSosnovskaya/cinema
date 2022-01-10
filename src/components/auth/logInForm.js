@@ -1,7 +1,7 @@
 import './logInForm.scss';
 import users from '../../users';
-import router from '../../router';
-import { setItemToLS, addElToParent } from '../../utils';
+import renderByRouter from '../../router';
+import { setItemToLS, addElToParent, changeUrlPath } from '../../utils';
 import { renderLoginContainer } from '../header/header';
 
 const EMPTY_FIELD_ERROR = 'Cannot be empty';
@@ -16,7 +16,8 @@ function validateForm() {
   if (emailInput.value === '') {
     errorEmailEl.innerText = EMPTY_FIELD_ERROR;
     return false;
-  } else if (errorEmailEl.innerText !== '') {
+  }
+  if (errorEmailEl.innerText !== '') {
     errorEmailEl.innerText = '';
   }
 
@@ -30,7 +31,8 @@ function validateForm() {
   if (passwordInput.value === '') {
     errorPasswordEl.innerText = EMPTY_FIELD_ERROR;
     return false;
-  } else if (errorPasswordEl.innerText !== '') {
+  }
+  if (errorPasswordEl.innerText !== '') {
     errorPasswordEl.innerText = '';
   }
 
@@ -56,7 +58,8 @@ function onSubmitHandler(e) {
 
     setItemToLS('user', activeUser);
     renderLoginContainer();
-    router('/');
+    changeUrlPath('/');
+    renderByRouter();
   }
 }
 function createLabel(innerText, id) {
@@ -124,7 +127,7 @@ export function createLoginForm() {
 }
 
 export function renderLoginForm() {
-  const container = document.getElementById('container');
+  const mainContainer = document.getElementById('mainContainer');
   const logInForm = createLoginForm();
-  container.append(logInForm);
+  mainContainer.append(logInForm);
 }

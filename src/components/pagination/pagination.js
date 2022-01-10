@@ -2,6 +2,7 @@ import './pagination.scss';
 import { fillFilmsContainer } from '../films/filmsContainer';
 
 const ACTIVE_CLASS = 'pagination-el__active';
+
 function refreshFilms(pageNumber) {
   const filmsContainerEl = document.getElementById('filmsContainer');
 
@@ -18,7 +19,9 @@ function arrowHandler(event, direction) {
   const currentPageNumber = Number(currentPageEl.innerText);
   const paginationArr = paginationContainer.getElementsByClassName('pagination-el');
 
-  const currentPageIndex = [...paginationArr].findIndex((el) => el.innerText === currentPageNumber);
+  const currentPageIndex = [...paginationArr].findIndex(
+    (el) => Number(el.innerText) === currentPageNumber,
+  );
 
   if (direction === 'left' && currentPageNumber !== 1) {
     const leftPageEl = paginationArr[currentPageIndex - 1];
@@ -34,6 +37,7 @@ function arrowHandler(event, direction) {
     refreshFilms(currentPageIndex + 1);
   }
 }
+
 function createPaginationEl(page) {
   const isFirstPage = page === '1';
   // const isEllipsis = page === '...';
@@ -52,6 +56,7 @@ function createPaginationEl(page) {
 
   return paginationEl;
 }
+
 function changePageHandler(event) {
   const currentPageEl = document.getElementsByClassName(ACTIVE_CLASS)[0];
   const currentPageNumber = currentPageEl.innerText;

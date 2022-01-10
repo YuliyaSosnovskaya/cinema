@@ -1,8 +1,3 @@
-export function deleteElById(id) {
-  const removableEl = document.getElementById(id);
-  removableEl.remove();
-}
-
 export function addElToParent(tag, parentEl, className, innerText) {
   const el = document.createElement(tag);
   if (className) {
@@ -15,20 +10,26 @@ export function addElToParent(tag, parentEl, className, innerText) {
   return el;
 }
 
-export function clearContainer() {
-  const container = document.getElementById('container');
+export function clearMainContainer() {
+  const mainContainer = document.getElementById('mainContainer');
 
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
+  while (mainContainer.firstChild) {
+    mainContainer.removeChild(mainContainer.firstChild);
   }
 }
 
 export function setItemToLS(key, value) {
   return localStorage.setItem(key, JSON.stringify(value));
 }
+
 export function getItemFromLS(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 export function removeItemFromLS(key) {
   localStorage.removeItem(key);
+}
+
+export function changeUrlPath(urlPath) {
+  window.history.pushState(null, null, urlPath);
 }

@@ -1,10 +1,11 @@
 import './header.scss';
 import IviLogo from '../../img/ivilogo.svg';
-import router from '../../router';
-import { getItemFromLS, removeItemFromLS, addElToParent } from '../../utils';
+import renderByRouter from '../../router';
+import { getItemFromLS, removeItemFromLS, addElToParent, changeUrlPath } from '../../utils';
 
 export function renderLoginContainer() {
   document.getElementById('loginContainer').remove();
+  // eslint-disable-next-line no-use-before-define
   const loginContainerEl = createLoginContainerEl();
 
   const headerEl = document.getElementById('header');
@@ -17,7 +18,8 @@ function onClickAuthButtonlHandler() {
     removeItemFromLS('user');
     renderLoginContainer();
   } else {
-    router('/sign-in');
+    changeUrlPath('/sign-in');
+    renderByRouter();
   }
 }
 

@@ -84,7 +84,7 @@ export function createFilmDetailsPage({
 }
 
 export function renderFilmDetailsPage(filmId) {
-  const container = document.getElementById('container');
+  const mainContainer = document.getElementById('mainContainer');
 
   const filmDetailsPromise = fetchFilmDetails(filmId);
   filmDetailsPromise.then((details) => {
@@ -101,6 +101,6 @@ export function renderFilmDetailsPage(filmId) {
       runtime: details.runtime,
       posterPath: details.poster_path,
     });
-    container.append(filmDetailsPageEl);
+    mainContainer.append(filmDetailsPageEl);
   });
 }

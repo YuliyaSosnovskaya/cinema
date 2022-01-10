@@ -1,18 +1,12 @@
-import { clearContainer } from '../utils';
 import { renderFilmsPage } from '../components/films/filmsContainer';
 import { renderFilmDetailsPage } from '../components/films/filmDetails';
 import { renderLoginForm } from '../components/auth/logInForm';
+import { clearMainContainer } from '../utils';
 
-function goTo(urlPath) {
-  history.pushState(null, null, urlPath);
-}
+export default function renderByRouter() {
+  const currentPath = window.location.pathname;
 
-export default function router(nextUrlPath) {
-  goTo(nextUrlPath);
-
-  const currentPath = location.pathname;
-
-  clearContainer();
+  clearMainContainer();
   if (currentPath === '/') {
     renderFilmsPage(1);
     return;
@@ -24,6 +18,5 @@ export default function router(nextUrlPath) {
   }
   if (currentPath === '/sign-in') {
     renderLoginForm();
-    return;
   }
 }
