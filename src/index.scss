@@ -1,6 +1,6 @@
-$main-pink-color:#ea003d;
-$main-white-color:#fff;
-$main-gray-color:#ffffff7a;
+$main-pink-color: #ea003d;
+$main-white-color: #fff;
+$main-gray-color: #ffffff7a;
 %button_pink {
   border: none;
   color: $main-white-color;
@@ -15,14 +15,14 @@ $main-gray-color:#ffffff7a;
   }
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-input{
+input {
   outline: none;
-  border:none;
+  border: none;
 }
 #root {
   margin: 0 10%;
@@ -30,6 +30,5 @@ input{
 body {
   color: $main-white-color;
   background-color: #100e19;
-  font-family: Helvetica,Helvetica Neue;
-
+  font-family: Helvetica, Helvetica Neue;
 }

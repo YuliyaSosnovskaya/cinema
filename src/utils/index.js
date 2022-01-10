@@ -1,9 +1,9 @@
-export function deleteElById (id) {
+export function deleteElById(id) {
   const removableEl = document.getElementById(id);
   removableEl.remove();
 }
 
-export function addElToParent (tag, parentEl, className, innerText) {
+export function addElToParent(tag, parentEl, className, innerText) {
   const el = document.createElement(tag);
   if (className) {
     el.className = className;
@@ -15,19 +15,18 @@ export function addElToParent (tag, parentEl, className, innerText) {
   return el;
 }
 
-export function clearContainer () {
+export function clearContainer() {
   const container = document.getElementById('container');
- 
+
   while (container.firstChild) {
     container.removeChild(container.firstChild);
-  };
+  }
 }
 
-//LS
-export function setItemToLS (key, value) {
+export function setItemToLS(key, value) {
   return localStorage.setItem(key, JSON.stringify(value));
 }
-export function getItemFromLS (key) {
+export function getItemFromLS(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 export function removeItemFromLS(key) {

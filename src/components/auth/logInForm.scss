@@ -7,16 +7,15 @@
   justify-content: center;
   flex-direction: column;
   width: max-content;
-  
+
   input {
     width: 250px;
     padding: 8px;
     border-radius: 8px;
     background-color: #1f1b2e;
     color: $main-white-color;
-    
   }
-  &__input-label{
+  &__input-label {
     margin-bottom: 10px;
     padding-left: 2px;
     padding-top: 10px;
@@ -30,7 +29,7 @@
     color: #ea003dab;
   }
 
-  &__buttons-container{
+  &__buttons-container {
     display: flex;
     justify-content: space-around;
     button:first-child {
@@ -40,6 +39,6 @@
       @extend %button_pink;
       margin-top: 15px;
       flex: 1;
-    } 
+    }
   }
 }

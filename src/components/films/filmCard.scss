@@ -30,18 +30,18 @@
     background-color: #262525c7;
     position: absolute;
     padding-left: 10px;
-    font-family: iviSans,Arial,Helvetica,Helvetica Neue;
+    font-family: iviSans, Arial, Helvetica, Helvetica Neue;
     @extend %film-decor;
     height: calc(100% - 30px);
     transition: 0.5s;
-  
+
     &__release-date {
       margin-bottom: 15px;
       font-size: 13px;
     }
-    &__vote-average  {
+    &__vote-average {
       margin-bottom: 12px;
-      &::first-letter{
+      &::first-letter {
         font-size: 26px;
       }
       font-size: 20px;

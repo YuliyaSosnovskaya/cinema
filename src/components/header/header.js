@@ -1,26 +1,9 @@
 import './header.scss';
 import IviLogo from '../../img/ivilogo.svg';
-import  router  from '../../router';
+import router from '../../router';
 import { getItemFromLS, removeItemFromLS, addElToParent } from '../../utils';
 
-export function createHeader () {
-  const header = document.createElement('header');
-  header.className = 'header';
-  header.id = 'header';
-  
-  //logo El
-  const logoIcon = document.createElement('img');
-  logoIcon.src = IviLogo;
-  logoIcon.className = 'logo-icon';
-  header.append(logoIcon);
-
-  const loginContainerEl = createLoginContainerEl();
-  header.append(loginContainerEl);
-
-  return header;
-}
-
-export function renderLoginContainer () {
+export function renderLoginContainer() {
   document.getElementById('loginContainer').remove();
   const loginContainerEl = createLoginContainerEl();
 
@@ -28,13 +11,21 @@ export function renderLoginContainer () {
   headerEl.append(loginContainerEl);
 }
 
-export function createLoginContainerEl () {
+function onClickAuthButtonlHandler() {
+  const user = getItemFromLS('user');
+  if (user) {
+    removeItemFromLS('user');
+    renderLoginContainer();
+  } else {
+    router('/sign-in');
+  }
+}
 
+export function createLoginContainerEl() {
   const loginContainerEl = document.createElement('div');
   loginContainerEl.className = 'logIn-container';
   loginContainerEl.id = 'loginContainer';
 
-  //user name str
   const user = getItemFromLS('user');
   if (user) {
     addElToParent('span', loginContainerEl, 'userName', user.name);
@@ -47,12 +38,18 @@ export function createLoginContainerEl () {
   return loginContainerEl;
 }
 
- function onClickAuthButtonlHandler () {
-  const user = getItemFromLS('user');
-  if (user) {
-    removeItemFromLS('user');
-    renderLoginContainer();
-  } else {
-    router('/sign-in');
-  }
+export function createHeader() {
+  const header = document.createElement('header');
+  header.className = 'header';
+  header.id = 'header';
+
+  const logoIcon = document.createElement('img');
+  logoIcon.src = IviLogo;
+  logoIcon.className = 'logo-icon';
+  header.append(logoIcon);
+
+  const loginContainerEl = createLoginContainerEl();
+  header.append(loginContainerEl);
+
+  return header;
 }

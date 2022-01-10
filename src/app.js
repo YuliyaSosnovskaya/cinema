@@ -4,9 +4,7 @@ import './index.scss';
 import { createHeader } from './components/header/header';
 import router from './router';
 
-window.addEventListener('popstate', function (event) {
-  router();
-});
+window.addEventListener('popstate', router);
 
 const rootEl = document.getElementById('root');
 const headerEl = createHeader();

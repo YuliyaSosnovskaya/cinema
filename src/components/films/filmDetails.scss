@@ -14,11 +14,10 @@
     height: 390px;
     border-radius: 8px;
   }
-  &__details-el{
+  &__details-el {
     display: flex;
     flex-direction: column;
     margin-left: 40px;
-    
   }
   &__about {
     font-size: 18px;
@@ -28,9 +27,9 @@
       font-size: 14px;
       font-weight: normal;
       border-spacing: 0 20px;
-      
+
       tr td:first-child {
-        color:$main-gray-color;
+        color: $main-gray-color;
         width: 110px;
         vertical-align: baseline;
       }
@@ -55,7 +54,7 @@
     color: $main-pink-color;
     &__votes {
       font-size: 14px;
-      color: $main-gray-color ;
+      color: $main-gray-color;
       width: max-content;
       margin-top: 5px;
     }

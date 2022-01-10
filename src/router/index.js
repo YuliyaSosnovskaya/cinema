@@ -3,13 +3,13 @@ import { renderFilmsPage } from '../components/films/filmsContainer';
 import { renderFilmDetailsPage } from '../components/films/filmDetails';
 import { renderLoginForm } from '../components/auth/logInForm';
 
-function goTo (urlPath) {
+function goTo(urlPath) {
   history.pushState(null, null, urlPath);
 }
 
-export default function router (nextUrlPath) {
+export default function router(nextUrlPath) {
   goTo(nextUrlPath);
-  
+
   const currentPath = location.pathname;
 
   clearContainer();
