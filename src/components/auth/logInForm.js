@@ -4,6 +4,10 @@ import router from '../../router';
 import { setItemToLS, addElToParent } from '../../utils';
 import { renderLoginContainer } from '../header/header';
 
+const EMPTY_FIELD_ERROR = 'Cannot be empty';
+const INVALID_VALUE_ERROR = 'Invalid';
+
+
 export function createLoginForm () {
   const logInFormEl = document.createElement('form');
   logInFormEl.className = 'logIn-form';
@@ -26,7 +30,6 @@ export function createLoginForm () {
   
   const passwordError = createError('', 'passwordError');
   logInFormEl.append(passwordError);
-
 
   const buttonsContainer = addElToParent('div', logInFormEl, 'logIn-form__buttons-container');
 
@@ -72,13 +75,10 @@ function createButton (type, innerText) {
 function onSubmitHandler (e) {
   e.preventDefault();
   
-  const nameInput = document.getElementById('emailInput');
-  const passwordInput =  document.getElementById('passwordInput');
-
-  const userToLogin = users.find((user) => user.email === nameInput.value);
-  const isPasswordRight =  userToLogin.password === passwordInput.value;
-
-  if (userToLogin && isPasswordRight) {
+  const isFormValid = validateForm();
+  if (isFormValid) {
+    const emailInput = document.getElementById('emailInput');
+    const userToLogin = users.find((user) => user.email === emailInput.value);
     const activeUser = {
       email: userToLogin.email,
       role: userToLogin.role,
@@ -87,9 +87,43 @@ function onSubmitHandler (e) {
 
     setItemToLS('user', activeUser);
     renderLoginContainer();
-
     router('/');
   }
+}
+
+function validateForm () {
+  const emailInput = document.getElementById('emailInput');
+  const passwordInput =  document.getElementById('passwordInput');
+  const errorEmailEl = document.getElementById('emailError');
+  const errorPasswordEl = document.getElementById('passwordError');
+
+  if (emailInput.value === '') {
+    errorEmailEl.innerText = EMPTY_FIELD_ERROR;
+    return false;
+  } else if (errorEmailEl.innerText !== '') {
+    errorEmailEl.innerText = '';
+  }
+
+  const userToLogin = users.find((user) => user.email === emailInput.value);
+  if (!userToLogin) {
+    errorEmailEl.innerText = INVALID_VALUE_ERROR;
+    return false;
+  }
+
+  const isPasswordRight =  userToLogin.password === passwordInput.value;
+  if (passwordInput.value === '') {
+    errorPasswordEl.innerText = EMPTY_FIELD_ERROR;
+    return false;
+  } else if (errorPasswordEl.innerText !== '') {
+    errorPasswordEl.innerText = '';
+  }
+
+  if (!isPasswordRight) {
+    errorPasswordEl.innerText = INVALID_VALUE_ERROR;
+    return false;
+  }
+
+  return true; 
 }
 
 export function renderLoginForm () {
