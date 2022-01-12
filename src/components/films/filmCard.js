@@ -1,11 +1,11 @@
 import './filmCard.scss';
-import renderByRouter from '../../router';
+import renderByUrlPath from '../../router';
 import { changeUrlPath } from '../../utils';
 
 function cardClickHandler(e) {
   const filmId = e.currentTarget.id;
   changeUrlPath(`/movie/${filmId}`);
-  renderByRouter();
+  renderByUrlPath();
 }
 
 export default function createFilmCard({ posterPath, title, releaseDate, voteAverage, id }) {

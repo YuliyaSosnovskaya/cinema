@@ -2,8 +2,9 @@ import { renderFilmsPage } from '../components/films/filmsContainer';
 import { renderFilmDetailsPage } from '../components/films/filmDetails';
 import { renderLoginForm } from '../components/auth/logInForm';
 import { clearMainContainer } from '../utils';
+import renderRegistrationForm from '../components/auth/registrationForm';
 
-export default function renderByRouter() {
+export default function renderByUrlPath() {
   const currentPath = window.location.pathname;
 
   clearMainContainer();
@@ -18,5 +19,9 @@ export default function renderByRouter() {
   }
   if (currentPath === '/sign-in') {
     renderLoginForm();
+    return;
+  }
+  if (currentPath === '/registration') {
+    renderRegistrationForm();
   }
 }

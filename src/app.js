@@ -2,9 +2,15 @@ import 'normalize.css/normalize.css';
 import './index.scss';
 
 import { createHeader } from './components/header/header';
-import renderByRouter from './router';
+import renderByUrlPath from './router';
+import { setItemToLS, getItemFromLS } from './utils';
+import users from './users';
 
-window.addEventListener('popstate', renderByRouter);
+window.addEventListener('popstate', renderByUrlPath);
+
+if (!getItemFromLS('users')) {
+  setItemToLS('users', users);
+}
 
 const rootEl = document.getElementById('root');
 const headerEl = createHeader();
@@ -14,4 +20,4 @@ const mainContainer = document.createElement('div');
 mainContainer.id = 'mainContainer';
 rootEl.append(mainContainer);
 
-renderByRouter();
+renderByUrlPath();

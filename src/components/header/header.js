@@ -1,6 +1,6 @@
 import './header.scss';
 import IviLogo from '../../img/ivilogo.svg';
-import renderByRouter from '../../router';
+import renderByUrlPath from '../../router';
 import { getItemFromLS, removeItemFromLS, addElToParent, changeUrlPath } from '../../utils';
 
 export function renderLoginContainer() {
@@ -13,13 +13,13 @@ export function renderLoginContainer() {
 }
 
 function onClickAuthButtonlHandler() {
-  const user = getItemFromLS('user');
+  const user = getItemFromLS('activeUser');
   if (user) {
-    removeItemFromLS('user');
+    removeItemFromLS('activeUser');
     renderLoginContainer();
   } else {
     changeUrlPath('/sign-in');
-    renderByRouter();
+    renderByUrlPath();
   }
 }
 
@@ -28,7 +28,7 @@ export function createLoginContainerEl() {
   loginContainerEl.className = 'logIn-container';
   loginContainerEl.id = 'loginContainer';
 
-  const user = getItemFromLS('user');
+  const user = getItemFromLS('activeUser');
   if (user) {
     addElToParent('span', loginContainerEl, 'userName', user.name);
   }
