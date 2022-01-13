@@ -1,7 +1,13 @@
 import './header.scss';
 import IviLogo from '../../img/ivilogo.svg';
 import renderByUrlPath from '../../router';
-import { getItemFromLS, removeItemFromLS, addElToParent, changeUrlPath } from '../../utils';
+import {
+  getItemFromLS,
+  removeItemFromLS,
+  addElToParent,
+  changeUrlPath,
+  getUserRole,
+} from '../../utils';
 
 export function renderLoginContainer() {
   document.getElementById('loginContainer').remove();
@@ -15,6 +21,9 @@ export function renderLoginContainer() {
 function onClickAuthButtonlHandler() {
   const user = getItemFromLS('activeUser');
   if (user) {
+    if (getUserRole() === 'admin') {
+      renderByUrlPath();
+    }
     removeItemFromLS('activeUser');
     renderLoginContainer();
   } else {
