@@ -33,3 +33,11 @@ export function removeItemFromLS(key) {
 export function changeUrlPath(urlPath) {
   window.history.pushState(null, null, urlPath);
 }
+
+export function getUserRole() {
+  const activeUser = getItemFromLS('activeUser');
+  if (activeUser) {
+    return activeUser.role;
+  }
+  return 'guest';
+}

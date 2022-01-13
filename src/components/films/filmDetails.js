@@ -1,44 +1,10 @@
 import './filmDetails.scss';
-import { addElToParent } from '../../utils';
+import editIcon from '../../img/pen.png';
+import { addElToParent, getUserRole, getItemFromLS } from '../../utils';
 import { fetchFilmDetails } from '../../requests/requests';
+import createAboutMovieTable from './filmAboutTable';
+import onClickEditHandler from './editHandler';
 
-function createDetailRow(key, value) {
-  const tr = document.createElement('tr');
-  addElToParent('td', tr, '', key);
-  addElToParent('td', tr, '', value);
-  return tr;
-}
-
-function createAboutMovieTable(releaseDate, overview, genres, runtime, budget) {
-  const formatReleaseDate = new Date(releaseDate).toLocaleDateString('en-En', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-  const genresStr = genres.map((genre) => genre.name).join(', ');
-  const duration = `${runtime} min`;
-  const budgetStr = `$${budget}`;
-
-  const table = document.createElement('table');
-  table.className = 'detail-page__about__table';
-
-  const releaseDateRow = createDetailRow('realise date', formatReleaseDate);
-  table.append(releaseDateRow);
-
-  const overviewRow = createDetailRow('overview', overview);
-  table.append(overviewRow);
-
-  const genresRow = createDetailRow('genres', genresStr);
-  table.append(genresRow);
-
-  const durationRow = createDetailRow('duration', duration);
-  table.append(durationRow);
-
-  const budgetRow = createDetailRow('budget', budgetStr);
-  table.append(budgetRow);
-
-  return table;
-}
 export function createFilmDetailsPage({
   overview,
   genres,
@@ -52,24 +18,42 @@ export function createFilmDetailsPage({
   runtime,
   posterPath,
 }) {
+  const isAdmin = getUserRole() === 'admin';
+
   const detailPageEl = document.createElement('div');
   detailPageEl.className = 'detail-page';
 
   const filmPart = addElToParent('div', detailPageEl, 'detail-page__film-part');
+  filmPart.id = 'filmPart';
 
   const posterEl = addElToParent('img', filmPart, 'detail-page__poster');
   posterEl.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   const detailsEl = addElToParent('div', filmPart, 'detail-page__details-el');
+  detailsEl.id = 'details';
 
   addElToParent('div', detailsEl, 'detail-page__title', title);
   addElToParent('span', detailsEl, 'detail-page__title__original-title', originalTitle);
   addElToParent('div', detailsEl, 'detail-page__title__advertising', 'watch 14 days for $1');
 
-  const aboutPart = addElToParent('div', detailsEl, 'detail-page__about', 'About movie');
+  const aboutPart = addElToParent('div', detailsEl, 'detail-page__about');
+  const abouMovieHeader = addElToParent(
+    'div',
+    aboutPart,
+    'detail-page__abouMovieHeader',
+    'About movie',
+  );
 
   const aboutMovieTableEl = createAboutMovieTable(releaseDate, overview, genres, runtime, budget);
   aboutPart.append(aboutMovieTableEl);
+
+  if (isAdmin) {
+    const editIconEl = addElToParent('img', abouMovieHeader, 'detail-page__edit-icon');
+    editIconEl.id = 'editIcon';
+    editIconEl.src = editIcon;
+
+    editIconEl.addEventListener('click', onClickEditHandler);
+  }
 
   const ratingPart = addElToParent('div', detailPageEl, 'detail-page__rating-part');
   addElToParent(
@@ -83,13 +67,27 @@ export function createFilmDetailsPage({
   return detailPageEl;
 }
 
+function getEditedFilmFromLS(filmId) {
+  const editedFilmsFromLS = getItemFromLS('editFilms') || [];
+
+  const editedEl = editedFilmsFromLS.find((filmFromLS) => filmFromLS.id === filmId);
+  if (editedEl) {
+    return editedEl;
+  }
+
+  return null;
+}
+
 export function renderFilmDetailsPage(filmId) {
   const mainContainer = document.getElementById('mainContainer');
+
+  const editedFilmFromLs = getEditedFilmFromLS(filmId);
+  const editedOverview = editedFilmFromLs?.overview;
 
   const filmDetailsPromise = fetchFilmDetails(filmId);
   filmDetailsPromise.then((details) => {
     const filmDetailsPageEl = createFilmDetailsPage({
-      overview: details.overview,
+      overview: editedOverview || details.overview,
       genres: details.genres,
       originalTitle: details.original_title,
       // popularity: details.popularity,
@@ -101,6 +99,7 @@ export function renderFilmDetailsPage(filmId) {
       runtime: details.runtime,
       posterPath: details.poster_path,
     });
+
     mainContainer.append(filmDetailsPageEl);
   });
 }
