@@ -3,7 +3,7 @@ import { fillFilmsContainer } from '../films/filmsContainer';
 
 const ACTIVE_CLASS = 'pagination-el__active';
 
-function refreshFilms(pageNumber) {
+export function refreshFilms(pageNumber) {
   const filmsContainerEl = document.getElementById('filmsContainer');
 
   while (filmsContainerEl.firstChild) {
@@ -40,13 +40,8 @@ function arrowHandler(event, direction) {
 
 function createPaginationEl(page) {
   const isFirstPage = page === '1';
-  // const isEllipsis = page === '...';
   const paginationEl = document.createElement('div');
   paginationEl.classList = 'pagination-el';
-
-  // if(isEllipsis) {
-  //   paginationEl.classList.add('pagination-el__ellipsis');
-  // }
 
   if (isFirstPage) {
     paginationEl.classList.add(ACTIVE_CLASS);
@@ -91,9 +86,6 @@ export default function createPagination() {
   const arrowRight = createPaginationEl('\u276F');
   arrowRight.addEventListener('click', (e) => arrowHandler(e, 'right'));
   paginationContainerEl.append(arrowRight);
-
-  // const eFirst = createPaginationEL('...');
-  // const eLast = createPaginationEL('...');
 
   return paginationContainerEl;
 }

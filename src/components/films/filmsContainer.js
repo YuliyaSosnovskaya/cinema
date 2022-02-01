@@ -2,6 +2,8 @@ import './filmsContainer.scss';
 import { fetchFilms } from '../../requests/requests';
 import createFilmCard from './filmCard';
 import createPagination from '../pagination/pagination';
+import createSortPanel from '../sort/sort';
+import { getSearchParams } from '../../utils';
 
 export function createFilmsContainer() {
   const filmsContainerEl = document.createElement('div');
@@ -12,8 +14,9 @@ export function createFilmsContainer() {
 }
 
 export function fillFilmsContainer(page) {
+  const sortBy = getSearchParams('sortBy') || 'popularity.desc';
   const filmsContainerEl = document.getElementById('filmsContainer');
-  const promise = fetchFilms(page, 'popularity.desc');
+  const promise = fetchFilms(page, sortBy);
   promise.then((films) => {
     films.forEach((film) => {
       const filmCardEl = createFilmCard({
@@ -30,6 +33,9 @@ export function fillFilmsContainer(page) {
 
 export function renderFilmsPage(pageNumber) {
   const mainContainer = document.getElementById('mainContainer');
+
+  const sortPanelEl = createSortPanel();
+  mainContainer.append(sortPanelEl);
 
   const filmsContainerEl = createFilmsContainer();
   mainContainer.append(filmsContainerEl);

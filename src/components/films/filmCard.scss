@@ -33,7 +33,7 @@
     padding-left: 10px;
     font-family: iviSans, Arial, Helvetica, Helvetica Neue;
     @extend %film-decor;
-    height: calc(100% - 30px);
+    height: calc(100% - 33px);
     transition: 0.5s;
 
     &__release-date {

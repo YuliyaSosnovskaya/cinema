@@ -41,3 +41,23 @@ export function getUserRole() {
   }
   return 'guest';
 }
+export function getSearchParams(key) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(key);
+}
+
+export function deleteSearchParams(key) {
+  const params = new URLSearchParams(window.location.search);
+  params.delete(key);
+  const { origin, pathname } = document.location;
+  window.history.pushState({}, '', `${origin}${pathname}?${params.toString()}`);
+}
+
+export function setSearchParams(key, value) {
+  const params = new URLSearchParams(window.location.search);
+  params.set(key, value);
+  const { origin, pathname } = document.location;
+  const url = `${origin}${pathname}?${params.toString()}`;
+
+  window.history.pushState({ [key]: value }, '', url);
+}
