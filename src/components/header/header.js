@@ -48,6 +48,13 @@ export function createLoginContainerEl() {
 
   return loginContainerEl;
 }
+function onClickLogoButtonHandler() {
+  const currentPath = window.location.pathname;
+  if (currentPath !== '/') {
+    changeUrlPath('/');
+    renderByUrlPath();
+  }
+}
 
 export function createHeader() {
   const header = document.createElement('header');
@@ -57,6 +64,7 @@ export function createHeader() {
   const logoIcon = document.createElement('img');
   logoIcon.src = IviLogo;
   logoIcon.className = 'logo-icon';
+  logoIcon.addEventListener('click', onClickLogoButtonHandler);
   header.append(logoIcon);
 
   const loginContainerEl = createLoginContainerEl();
