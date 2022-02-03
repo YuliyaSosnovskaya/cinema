@@ -7,7 +7,7 @@ export default [
     role: 'user',
   },
   {
-    name: 'Yuliya',
+    name: 'Admin',
     surname: 'Admin',
     email: 'admin@mail.com',
     password: '123456',

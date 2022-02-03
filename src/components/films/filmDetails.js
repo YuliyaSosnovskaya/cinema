@@ -1,15 +1,29 @@
 import './filmDetails.scss';
 import editIcon from '../../img/pen.png';
-import { addElToParent, getUserRole, getItemFromLS } from '../../utils';
+import { addElToParent, getUserRole, getItemFromLS, setItemToLS, changeUrlPath } from '../../utils';
 import { fetchFilmDetails } from '../../requests/requests';
 import createAboutMovieTable from './filmAboutTable';
 import onClickEditHandler from './editHandler';
+import renderByUrlPath from '../../router';
+import deleteIcon from '../../img/delete-pink.png';
+
+function onDeleteHandler() {
+  const currentPath = window.location.pathname;
+  const filmId = Number(currentPath.split('/')[2]);
+  const deleteFilmsFromLS = getItemFromLS('deletedFilms') || [];
+
+  if (!deleteFilmsFromLS.includes(filmId)) {
+    deleteFilmsFromLS.push(filmId);
+  }
+  setItemToLS('deletedFilms', deleteFilmsFromLS);
+  changeUrlPath('/');
+  renderByUrlPath();
+}
 
 export function createFilmDetailsPage({
   overview,
   genres,
   originalTitle,
-  // popularity,
   releaseDate,
   title,
   voteAverage,
@@ -32,7 +46,15 @@ export function createFilmDetailsPage({
   const detailsEl = addElToParent('div', filmPart, 'detail-page__details-el');
   detailsEl.id = 'details';
 
-  addElToParent('div', detailsEl, 'detail-page__title', title);
+  const filmTitle = addElToParent('div', detailsEl, 'detail-page__title', title);
+  if (isAdmin) {
+    const deleteIconEL = document.createElement('img');
+    deleteIconEL.src = deleteIcon;
+    deleteIconEL.className = 'detail-page__delete-icon';
+    deleteIconEL.addEventListener('click', onDeleteHandler);
+    filmTitle.append(deleteIconEL);
+  }
+
   addElToParent('span', detailsEl, 'detail-page__title__original-title', originalTitle);
   addElToParent('div', detailsEl, 'detail-page__title__advertising', 'watch 14 days for $1');
 
@@ -90,7 +112,6 @@ export function renderFilmDetailsPage(filmId) {
       overview: editedOverview || details.overview,
       genres: details.genres,
       originalTitle: details.original_title,
-      // popularity: details.popularity,
       releaseDate: details.release_date,
       title: details.title,
       voteAverage: details.vote_average,

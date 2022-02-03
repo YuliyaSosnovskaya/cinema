@@ -3,7 +3,7 @@ import { fetchFilms } from '../../requests/requests';
 import createFilmCard from './filmCard';
 import createPagination from '../pagination/pagination';
 import createSortPanel from '../sort/sort';
-import { getSearchParams } from '../../utils';
+import { getSearchParams, getItemFromLS } from '../../utils';
 
 export function createFilmsContainer() {
   const filmsContainerEl = document.createElement('div');
@@ -17,6 +17,7 @@ export function fillFilmsContainer(page) {
   const sortBy = getSearchParams('sortBy') || 'popularity.desc';
   const filmsContainerEl = document.getElementById('filmsContainer');
   const promise = fetchFilms(page, sortBy);
+  const deletedFilmsFromLS = getItemFromLS('deletedFilms');
   promise.then((films) => {
     films.forEach((film) => {
       const filmCardEl = createFilmCard({
@@ -26,7 +27,15 @@ export function fillFilmsContainer(page) {
         voteAverage: film.vote_average,
         id: film.id,
       });
-      filmsContainerEl.append(filmCardEl);
+
+      if (deletedFilmsFromLS) {
+        const isFilmDeleted = deletedFilmsFromLS.includes(film.id);
+        if (!isFilmDeleted) {
+          filmsContainerEl.append(filmCardEl);
+        }
+      } else {
+        filmsContainerEl.append(filmCardEl);
+      }
     });
   });
 }

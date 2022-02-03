@@ -1,11 +1,26 @@
 import './filmCard.scss';
 import renderByUrlPath from '../../router';
-import { changeUrlPath } from '../../utils';
+import { changeUrlPath, getUserRole, getItemFromLS, setItemToLS } from '../../utils';
+import deleteIcon from '../../img/delete.png';
 
 function cardClickHandler(e) {
   const filmId = e.currentTarget.id;
   changeUrlPath(`/movie/${filmId}`);
   renderByUrlPath();
+}
+
+function onDeleteHandler(e) {
+  e.stopPropagation();
+  const filmEl = e.target.parentNode.parentNode;
+  const filmId = Number(filmEl.id);
+  const deleteFilmsFromLS = getItemFromLS('deletedFilms') || [];
+
+  if (!deleteFilmsFromLS.includes(filmId)) {
+    deleteFilmsFromLS.push(filmId);
+  }
+
+  setItemToLS('deletedFilms', deleteFilmsFromLS);
+  filmEl.remove();
 }
 
 export default function createFilmCard({ posterPath, title, releaseDate, voteAverage, id }) {
@@ -26,6 +41,15 @@ export default function createFilmCard({ posterPath, title, releaseDate, voteAve
 
   const cardHoverEl = document.createElement('div');
   cardHoverEl.classList = 'film-card-el__hover';
+
+  const isAdmin = getUserRole() === 'admin';
+  if (isAdmin) {
+    const deleteIconEl = document.createElement('img');
+    deleteIconEl.src = deleteIcon;
+    deleteIconEl.className = 'film-card-el__hover__delete-icon';
+    deleteIconEl.addEventListener('click', onDeleteHandler);
+    cardHoverEl.append(deleteIconEl);
+  }
 
   const releaseDateEl = document.createElement('div');
   releaseDateEl.innerText = new Date(releaseDate).toLocaleDateString('ru-RU', {
