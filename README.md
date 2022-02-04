@@ -2,7 +2,7 @@ Online cinema
 
 Firebase pages: https://cinema-b3a96.web.app/
 
-Users to test: 
+Test accounts: 
   user - email: 'test@mail.com', password: '123456'
   admin - email: 'admin@mail.com', password: '123456'
   
