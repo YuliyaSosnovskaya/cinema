@@ -1,0 +1,10 @@
+.films-container {
+  position: relative;
+  margin: 50px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: min-content;
+  grid-row-gap: 40px;
+  grid-column-gap: 3%;
+  min-height: 410px;
+}

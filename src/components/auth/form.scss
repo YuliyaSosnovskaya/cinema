@@ -1,0 +1,48 @@
+@import '../../index';
+
+.form {
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: max-content;
+  .title {
+    margin-bottom: 10px;
+    padding-left: 5px;
+    font-size: 18px;
+  }
+  input {
+    width: 250px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #1f1b2e;
+    color: $main-white-color;
+  }
+  &__input-label {
+    margin-bottom: 7px;
+    padding-left: 2px;
+    padding-top: 5px;
+    color: $main-gray-color;
+  }
+  &__error {
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 20px;
+    font-size: 12px;
+    color: #ea003dab;
+  }
+
+  &__buttons-container {
+    display: flex;
+    justify-content: space-around;
+    button:first-child {
+      margin-right: 15px;
+    }
+    button {
+      @extend %button_pink;
+      margin-top: 15px;
+      flex: 1;
+    }
+  }
+}

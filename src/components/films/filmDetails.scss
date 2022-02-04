@@ -1,0 +1,119 @@
+@import '../../index';
+
+.detail-page {
+  display: flex;
+  margin: 50px 0;
+  justify-content: space-between;
+
+  &__film-part {
+    display: flex;
+  }
+
+  &__poster {
+    width: 260px;
+    height: 390px;
+    border-radius: 8px;
+  }
+  &__details-el {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+  }
+  &__about {
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 35px;
+    &__table {
+      font-size: 14px;
+      font-weight: normal;
+      border-spacing: 0 20px;
+
+      td {
+        width: 360px;
+      }
+      tr td:first-child {
+        color: $main-gray-color;
+        min-width: 110px;
+        max-width: 110px;
+        vertical-align: baseline;
+      }
+    }
+  }
+  &__delete-icon {
+    height: 24px;
+    width: 24px;
+    transition: 0.3s;
+    margin-left: 40px;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      transition: 0.3s;
+    }
+  }
+  &__title {
+    font-size: 26px;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+
+    &__original-title {
+      font-size: 15px;
+      color: $main-gray-color;
+      margin-top: 20px;
+    }
+    &__advertising {
+      @extend %button_pink;
+    }
+  }
+  &__abouMovieHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__edit-icon {
+    width: 20px;
+    height: 20px;
+    transition: 0.2s;
+    pointer-events: auto;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.8);
+      transform: scale(1.2);
+      transition: 0.2s;
+    }
+  }
+  &__textarea {
+    padding: 10px;
+    width: 360px;
+    border-radius: 8px;
+    // overflow: hidden;
+    background-color: #1f1b2e;
+    color: white;
+    resize: none;
+    box-shadow: 2px 2px 8px #02020378;
+    &:hover {
+      box-shadow: 2px 2px 8px #5f5f7694;
+    }
+  }
+  &__save {
+    @extend %button_pink;
+    align-self: end;
+    width: 140px;
+    text-align: center;
+    background-color: #136313;
+  }
+  &__rating-part {
+    font-size: 34px;
+    margin-left: 40px;
+    color: $main-pink-color;
+    margin-top: -10px;
+    &__votes {
+      font-size: 14px;
+      color: $main-gray-color;
+      width: max-content;
+      margin-top: 5px;
+    }
+    &__vote-average::first-letter {
+      font-size: 45px;
+    }
+  }
+}
