@@ -4,6 +4,7 @@ import createFilmCard from './filmCard';
 import createPagination from '../pagination/pagination';
 import createSortPanel from '../sort/sort';
 import { getSearchParams, getItemFromLS } from '../../utils';
+import createSpiner from '../spiner/spiner';
 
 export function createFilmsContainer() {
   const filmsContainerEl = document.createElement('div');
@@ -16,27 +17,33 @@ export function createFilmsContainer() {
 export function fillFilmsContainer(page) {
   const sortBy = getSearchParams('sortBy') || 'popularity.desc';
   const filmsContainerEl = document.getElementById('filmsContainer');
+  const spinerEl = createSpiner();
+  filmsContainerEl.append(spinerEl);
   const promise = fetchFilms(page, sortBy);
+
   const deletedFilmsFromLS = getItemFromLS('deletedFilms');
   promise.then((films) => {
-    films.forEach((film) => {
-      const filmCardEl = createFilmCard({
-        posterPath: film.poster_path,
-        title: film.title,
-        releaseDate: film.release_date,
-        voteAverage: film.vote_average,
-        id: film.id,
-      });
+    setTimeout(() => {
+      document.getElementById('loader').remove();
+      films.forEach((film) => {
+        const filmCardEl = createFilmCard({
+          posterPath: film.poster_path,
+          title: film.title,
+          releaseDate: film.release_date,
+          voteAverage: film.vote_average,
+          id: film.id,
+        });
 
-      if (deletedFilmsFromLS) {
-        const isFilmDeleted = deletedFilmsFromLS.includes(film.id);
-        if (!isFilmDeleted) {
+        if (deletedFilmsFromLS) {
+          const isFilmDeleted = deletedFilmsFromLS.includes(film.id);
+          if (!isFilmDeleted) {
+            filmsContainerEl.append(filmCardEl);
+          }
+        } else {
           filmsContainerEl.append(filmCardEl);
         }
-      } else {
-        filmsContainerEl.append(filmCardEl);
-      }
-    });
+      });
+    }, 1000);
   });
 }
 

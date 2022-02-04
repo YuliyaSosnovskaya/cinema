@@ -1,0 +1,28 @@
+@import '../../index';
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.lds-dual-ring:after {
+  position: absolute;
+  left: calc(50% - 44px);
+  top: calc(50% - 44px);
+  content: ' ';
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 6px solid $main-pink-color;
+  border-color: $main-pink-color transparent $main-pink-color transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
